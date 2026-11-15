@@ -1,0 +1,10 @@
+# Optional local / production secrets override
+# If omitted, you can claim your tree and configure Turnstile keys directly in the web UI!
+
+# Lock owner password via environment secret (optional; disables First-Boot UI claim)
+# ADMIN_PASSWORD=your-strong-owner-password
+
+# Lock Cloudflare Turnstile keys via environment secrets (optional)
+# On localhost, Bough automatically uses Cloudflare's official test keys when unset.
+# TURNSTILE_SITE_KEY=0x4AAAAAAA...
+# TURNSTILE_SECRET_KEY=0x4AAAAAAA...

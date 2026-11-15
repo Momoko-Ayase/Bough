@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+@theme {
+  /* Display uses Cormorant Garamond for Latin + crisp SemiBold/Bold CJK Serif (Songti / Mincho / Myeongjo) */
+  --font-display: "Cormorant Garamond", "Noto Serif SC", "Source Han Serif SC",
+    "Songti SC", "Noto Serif TC", "Noto Serif JP", "Hiragino Mincho ProN",
+    "Yu Mincho", "Noto Serif KR", "Batang", Georgia, serif;
+
+  /* Body UI uses high-legibility Sans / Gothic across Latin & CJK */
+  --font-sans: "Plus Jakarta Sans", "PingFang SC", "HarmonyOS Sans SC",
+    "Microsoft YaHei UI", "PingFang TC", "Microsoft JhengHei UI",
+    "Hiragino Sans", "Yu Gothic UI", "Apple SD Gothic Neo", "Malgun Gothic",
+    -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, "PingFang SC",
+    "Microsoft YaHei UI", monospace;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    background-color: #0a171c;
+    color: #f5efe4;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Per-locale CJK Serif + Sans pairing:
+     - .font-display renders true literary Serif in both English AND CJK at crisp 600/700 stroke weight
+     - Body/UI controls render razor-sharp Gothic/Sans */
+  html[lang="zh-CN"] {
+    --font-display: "Cormorant Garamond", "Noto Serif SC",
+      "Source Han Serif SC", "Songti SC", "STSong", "SimSun", serif;
+    --font-sans: "Plus Jakarta Sans", "PingFang SC", "HarmonyOS Sans SC",
+      "Microsoft YaHei UI", "Microsoft YaHei", sans-serif;
+  }
+
+  html[lang="zh-TW"] {
+    --font-display: "Cormorant Garamond", "Noto Serif TC",
+      "Source Han Serif TC", "Songti TC", "PMingLiU", serif;
+    --font-sans: "Plus Jakarta Sans", "PingFang TC", "Microsoft JhengHei UI",
+      "Microsoft JhengHei", sans-serif;
+  }
+
+  html[lang="ja"] {
+    --font-display: "Cormorant Garamond", "Noto Serif JP",
+      "Source Han Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
+    --font-sans: "Plus Jakarta Sans", "Hiragino Sans",
+      "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Meiryo", sans-serif;
+  }
+
+  html[lang="ko"] {
+    --font-display: "Cormorant Garamond", "Noto Serif KR",
+      "Source Han Serif KR", "AppleMyungjo", "Nanum Myeongjo", "Batang", serif;
+    --font-sans: "Plus Jakarta Sans", "Apple SD Gothic Neo", "Malgun Gothic",
+      "Pretendard", sans-serif;
+  }
+
+  /* Ensure CJK serif display headings have strong 700 weight & clean stroke spacing so thin horizontal strokes never blur on Windows ClearType */
+  html:is([lang="zh-CN"], [lang="zh-TW"], [lang="ja"], [lang="ko"])
+    .font-display {
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    line-height: 1.35;
+  }
+}
+
+@keyframes bough-pendulum-sway {
+  0%,
+  100% {
+    transform: rotate(-2.1deg);
+  }
+  50% {
+    transform: rotate(2.1deg);
+  }
+}
+
+@keyframes bough-fairy-twinkle {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes bough-snow-fall {
+  0% {
+    transform: translate3d(0, -2vh, 0);
+  }
+  50% {
+    transform: translate3d(var(--snow-drift, 14px), 50vh, 0);
+  }
+  100% {
+    transform: translate3d(0, 104vh, 0);
+  }
+}
+
+.bough-pendulum {
+  animation-name: bough-pendulum-sway;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.bough-fairy-bulb {
+  animation: bough-fairy-twinkle 3.6s ease-in-out infinite;
+}
+
+.bough-snowflake {
+  animation-name: bough-snow-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bough-pendulum,
+  .bough-fairy-bulb,
+  .bough-snowflake {
+    animation: none !important;
+  }
+}
